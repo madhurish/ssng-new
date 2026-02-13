@@ -1,12 +1,12 @@
 import React from 'react';
 
 const categories = [
-  { name: 'Flowering Plants', count: '200+ Species', image: '/gallery/flowering/1.jpg' },
-  { name: 'Indoor Plants', count: '150+ Species', image: '/gallery/indoor/1.jpg' },
-  { name: 'Palm Varieties', count: '80+ Species', image: '/gallery/palm/39.jpg' },
+  { name: 'Flowering Plants', count: '200+ Species', image: '/gallery/flowering/Bougainvillea Gold-2.jpg' },
+  { name: 'Indoor Plants', count: '150+ Species', image: '/gallery/indoor/aglaonema thai pink-1.jpg' },
+  { name: 'Palm Varieties', count: '80+ Species', image: '/gallery/palm/wodyetia bifurcata.jpg' },
   { name: 'Bonsai Collection', count: '50+ Species', image: '/gallery/bonsai/1.png' },
   { name: 'Fruit Plants', count: '120+ Species', image: '/gallery/fruits/1.jpg' },
-  { name: 'Ornamental Plants', count: '300+ Species', image: '/gallery/ornamentals/28.jpg' },
+  { name: 'Ornamental Plants', count: '300+ Species', image: '/gallery/ornamentals/acalypha bronze red-1.jpg' },
 ];
 
 export const ProductCategories = () => {
@@ -23,12 +23,12 @@ export const ProductCategories = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category) => (
-            <div 
+            <div
               key={category.name}
               className="group relative h-96 rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
             >
-              <img 
-                src={category.image} 
+              <img
+                src={category.image}
                 alt={category.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
