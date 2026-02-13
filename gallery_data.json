@@ -1,0 +1,872 @@
+const galleryImages = [
+  {
+    "src": "/gallery/flowering/0.jpg",
+    "category": "flowering",
+    "title": "0"
+  },
+  {
+    "src": "/gallery/flowering/1.jpg",
+    "category": "flowering",
+    "title": "1"
+  },
+  {
+    "src": "/gallery/flowering/10.jpg",
+    "category": "flowering",
+    "title": "10"
+  },
+  {
+    "src": "/gallery/flowering/11.jpg",
+    "category": "flowering",
+    "title": "11"
+  },
+  {
+    "src": "/gallery/flowering/12.jpg",
+    "category": "flowering",
+    "title": "12"
+  },
+  {
+    "src": "/gallery/flowering/13.jpg",
+    "category": "flowering",
+    "title": "13"
+  },
+  {
+    "src": "/gallery/flowering/14.jpg",
+    "category": "flowering",
+    "title": "14"
+  },
+  {
+    "src": "/gallery/flowering/15.jpg",
+    "category": "flowering",
+    "title": "15"
+  },
+  {
+    "src": "/gallery/flowering/16.jpg",
+    "category": "flowering",
+    "title": "16"
+  },
+  {
+    "src": "/gallery/flowering/17.jpg",
+    "category": "flowering",
+    "title": "17"
+  },
+  {
+    "src": "/gallery/flowering/18.jpg",
+    "category": "flowering",
+    "title": "18"
+  },
+  {
+    "src": "/gallery/flowering/19.jpg",
+    "category": "flowering",
+    "title": "19"
+  },
+  {
+    "src": "/gallery/flowering/2.jpg",
+    "category": "flowering",
+    "title": "2"
+  },
+  {
+    "src": "/gallery/flowering/20.jpg",
+    "category": "flowering",
+    "title": "20"
+  },
+  {
+    "src": "/gallery/flowering/21.jpg",
+    "category": "flowering",
+    "title": "21"
+  },
+  {
+    "src": "/gallery/flowering/22.jpg",
+    "category": "flowering",
+    "title": "22"
+  },
+  {
+    "src": "/gallery/flowering/23.jpg",
+    "category": "flowering",
+    "title": "23"
+  },
+  {
+    "src": "/gallery/flowering/24.jpg",
+    "category": "flowering",
+    "title": "24"
+  },
+  {
+    "src": "/gallery/flowering/25.jpg",
+    "category": "flowering",
+    "title": "25"
+  },
+  {
+    "src": "/gallery/flowering/26.jpg",
+    "category": "flowering",
+    "title": "26"
+  },
+  {
+    "src": "/gallery/flowering/27.jpg",
+    "category": "flowering",
+    "title": "27"
+  },
+  {
+    "src": "/gallery/flowering/28.jpg",
+    "category": "flowering",
+    "title": "28"
+  },
+  {
+    "src": "/gallery/flowering/29.jpg",
+    "category": "flowering",
+    "title": "29"
+  },
+  {
+    "src": "/gallery/flowering/3.jpg",
+    "category": "flowering",
+    "title": "3"
+  },
+  {
+    "src": "/gallery/flowering/30.jpg",
+    "category": "flowering",
+    "title": "30"
+  },
+  {
+    "src": "/gallery/flowering/31.jpg",
+    "category": "flowering",
+    "title": "31"
+  },
+  {
+    "src": "/gallery/flowering/32.jpg",
+    "category": "flowering",
+    "title": "32"
+  },
+  {
+    "src": "/gallery/flowering/4.jpg",
+    "category": "flowering",
+    "title": "4"
+  },
+  {
+    "src": "/gallery/flowering/5.jpg",
+    "category": "flowering",
+    "title": "5"
+  },
+  {
+    "src": "/gallery/flowering/6.jpg",
+    "category": "flowering",
+    "title": "6"
+  },
+  {
+    "src": "/gallery/flowering/7.jpg",
+    "category": "flowering",
+    "title": "7"
+  },
+  {
+    "src": "/gallery/flowering/8.jpg",
+    "category": "flowering",
+    "title": "8"
+  },
+  {
+    "src": "/gallery/flowering/9.jpg",
+    "category": "flowering",
+    "title": "9"
+  },
+  {
+    "src": "/gallery/flowering/Allamanda gladiator violacea-1.jpg",
+    "category": "flowering",
+    "title": "Allamanda Gladiator Violacea"
+  },
+  {
+    "src": "/gallery/flowering/Allamanda oleander-2.jpg",
+    "category": "flowering",
+    "title": "Allamanda Oleander"
+  },
+  {
+    "src": "/gallery/flowering/Bougainvillea Gold-2.jpg",
+    "category": "flowering",
+    "title": "Bougainvillea Gold"
+  },
+  {
+    "src": "/gallery/flowering/Gerbera-1.jpg",
+    "category": "flowering",
+    "title": "Gerbera"
+  },
+  {
+    "src": "/gallery/flowering/HT Hibiscus-1.png",
+    "category": "flowering",
+    "title": "HT Hibiscus"
+  },
+  {
+    "src": "/gallery/flowering/HT Hibiscus-2.jpg",
+    "category": "flowering",
+    "title": "HT Hibiscus"
+  },
+  {
+    "src": "/gallery/flowering/Heliconiapsittacorum-2.jpg",
+    "category": "flowering",
+    "title": "Heliconiapsittacorum"
+  },
+  {
+    "src": "/gallery/flowering/IXORA NARO LEAF RED-1.jpg",
+    "category": "flowering",
+    "title": "IXORA NARO LEAF RED"
+  },
+  {
+    "src": "/gallery/flowering/PachystachysLutea-1.jpeg",
+    "category": "flowering",
+    "title": "PachystachysLutea"
+  },
+  {
+    "src": "/gallery/flowering/Passiflora-1.jpg",
+    "category": "flowering",
+    "title": "Passiflora"
+  },
+  {
+    "src": "/gallery/flowering/adanium obesum-1.jpg",
+    "category": "flowering",
+    "title": "Adanium Obesum"
+  },
+  {
+    "src": "/gallery/flowering/adanium obesum-2.jpeg",
+    "category": "flowering",
+    "title": "Adanium Obesum"
+  },
+  {
+    "src": "/gallery/flowering/allamanda gladiator violacea-2.jpg",
+    "category": "flowering",
+    "title": "Allamanda Gladiator Violacea"
+  },
+  {
+    "src": "/gallery/flowering/allamanda oleander-1.jpeg",
+    "category": "flowering",
+    "title": "Allamanda Oleander"
+  },
+  {
+    "src": "/gallery/flowering/bird of paradise-1.jpg",
+    "category": "flowering",
+    "title": "Bird Of Paradise"
+  },
+  {
+    "src": "/gallery/flowering/bird-of-paradise-2.jpg",
+    "category": "flowering",
+    "title": "Bird Of Paradise"
+  },
+  {
+    "src": "/gallery/flowering/bourgainvillea gold-1.jpeg",
+    "category": "flowering",
+    "title": "Bourgainvillea Gold"
+  },
+  {
+    "src": "/gallery/flowering/heliconiapsittacorum-1.jpg",
+    "category": "flowering",
+    "title": "Heliconiapsittacorum"
+  },
+  {
+    "src": "/gallery/flowering/ixora yellow-2.jpg",
+    "category": "flowering",
+    "title": "Ixora Yellow"
+  },
+  {
+    "src": "/gallery/flowering/ixora yellow.jpg",
+    "category": "flowering",
+    "title": "Ixora Yellow"
+  },
+  {
+    "src": "/gallery/flowering/jamun .jpg",
+    "category": "flowering",
+    "title": "Jamun "
+  },
+  {
+    "src": "/gallery/flowering/litchi.jpg",
+    "category": "flowering",
+    "title": "Litchi"
+  },
+  {
+    "src": "/gallery/flowering/litchi1.jpg",
+    "category": "flowering",
+    "title": "Litchi1"
+  },
+  {
+    "src": "/gallery/flowering/mandevillea white-2.jpg",
+    "category": "flowering",
+    "title": "Mandevillea White"
+  },
+  {
+    "src": "/gallery/flowering/orchid phalaenopsis-1.jpg",
+    "category": "flowering",
+    "title": "Orchid Phalaenopsis"
+  },
+  {
+    "src": "/gallery/flowering/orchid vendas-1.jpg",
+    "category": "flowering",
+    "title": "Orchid Vendas"
+  },
+  {
+    "src": "/gallery/flowering/orchid vendas-2.jpg",
+    "category": "flowering",
+    "title": "Orchid Vendas"
+  },
+  {
+    "src": "/gallery/flowering/orchids phalaenopsis-2.jpg",
+    "category": "flowering",
+    "title": "Orchids Phalaenopsis"
+  },
+  {
+    "src": "/gallery/flowering/pachystachys-lutea2.jpg",
+    "category": "flowering",
+    "title": "Pachystachys Lutea2"
+  },
+  {
+    "src": "/gallery/flowering/passiflora-2.jpg",
+    "category": "flowering",
+    "title": "Passiflora"
+  },
+  {
+    "src": "/gallery/flowering/plimeria obtusa flore tonda-2.jpg",
+    "category": "flowering",
+    "title": "Plimeria Obtusa Flore Tonda"
+  },
+  {
+    "src": "/gallery/flowering/plumeria obtusa flore tonda-1.jpg",
+    "category": "flowering",
+    "title": "Plumeria Obtusa Flore Tonda"
+  },
+  {
+    "src": "/gallery/flowering/water apple hybrid.jpg",
+    "category": "flowering",
+    "title": "Water Apple Hybrid"
+  },
+  {
+    "src": "/gallery/indoor/MONEY PLANT MARBLE QUEEN WHITE-1.jpg",
+    "category": "indoor",
+    "title": "MONEY PLANT MARBLE QUEEN WHITE"
+  },
+  {
+    "src": "/gallery/indoor/MONEY PLANT MARBLE QUEEN WHITE-2.jpg",
+    "category": "indoor",
+    "title": "MONEY PLANT MARBLE QUEEN WHITE"
+  },
+  {
+    "src": "/gallery/indoor/MONEY-PLANT-MARBLE QUEEN WHITE-1.jpg",
+    "category": "indoor",
+    "title": "MONEY PLANT MARBLE QUEEN WHITE"
+  },
+  {
+    "src": "/gallery/indoor/Zamio culcas-1.jpg",
+    "category": "indoor",
+    "title": "Zamio Culcas"
+  },
+  {
+    "src": "/gallery/indoor/aglaonema thai pink-1.jpg",
+    "category": "indoor",
+    "title": "Aglaonema Thai Pink"
+  },
+  {
+    "src": "/gallery/indoor/aglaonema thai red ruby-1.jpg",
+    "category": "indoor",
+    "title": "Aglaonema Thai Red Ruby"
+  },
+  {
+    "src": "/gallery/indoor/aglaonema thai-2.jpg",
+    "category": "indoor",
+    "title": "Aglaonema Thai"
+  },
+  {
+    "src": "/gallery/indoor/aglaonema varieties-1.jpg",
+    "category": "indoor",
+    "title": "Aglaonema Varieties"
+  },
+  {
+    "src": "/gallery/indoor/aglaonemathai.jpeg",
+    "category": "indoor",
+    "title": "Aglaonemathai"
+  },
+  {
+    "src": "/gallery/indoor/alocasia-1.jpg",
+    "category": "indoor",
+    "title": "Alocasia"
+  },
+  {
+    "src": "/gallery/indoor/anthuriums-2.jpg",
+    "category": "indoor",
+    "title": "Anthuriums"
+  },
+  {
+    "src": "/gallery/indoor/anthuriums.jpeg",
+    "category": "indoor",
+    "title": "Anthuriums"
+  },
+  {
+    "src": "/gallery/indoor/bird nest fern-1.jpg",
+    "category": "indoor",
+    "title": "Bird Nest Fern"
+  },
+  {
+    "src": "/gallery/indoor/bird nest fern-2.jpg",
+    "category": "indoor",
+    "title": "Bird Nest Fern"
+  },
+  {
+    "src": "/gallery/indoor/dracena massangeana gold-1.jpeg",
+    "category": "indoor",
+    "title": "Dracena Massangeana Gold"
+  },
+  {
+    "src": "/gallery/indoor/dracena massangeana gold-2.jpg",
+    "category": "indoor",
+    "title": "Dracena Massangeana Gold"
+  },
+  {
+    "src": "/gallery/indoor/guzmania-2.jpg",
+    "category": "indoor",
+    "title": "Guzmania"
+  },
+  {
+    "src": "/gallery/indoor/guzmanias-1.jpg",
+    "category": "indoor",
+    "title": "Guzmanias"
+  },
+  {
+    "src": "/gallery/indoor/nephrolepis golden fern-1.jpg",
+    "category": "indoor",
+    "title": "Nephrolepis Golden Fern"
+  },
+  {
+    "src": "/gallery/indoor/nephrolepis golden fern-2.jpg",
+    "category": "indoor",
+    "title": "Nephrolepis Golden Fern"
+  },
+  {
+    "src": "/gallery/indoor/philodendron selloum gold-1.jpg",
+    "category": "indoor",
+    "title": "Philodendron Selloum Gold"
+  },
+  {
+    "src": "/gallery/indoor/philodendron selloum gold-2.jpg",
+    "category": "indoor",
+    "title": "Philodendron Selloum Gold"
+  },
+  {
+    "src": "/gallery/indoor/philodendron xanadu-1.jpg",
+    "category": "indoor",
+    "title": "Philodendron Xanadu"
+  },
+  {
+    "src": "/gallery/indoor/philodendron xanadu-2.jpeg",
+    "category": "indoor",
+    "title": "Philodendron Xanadu"
+  },
+  {
+    "src": "/gallery/indoor/sansevieria trifasciata laurentii-1.jpg",
+    "category": "indoor",
+    "title": "Sansevieria Trifasciata Laurentii"
+  },
+  {
+    "src": "/gallery/indoor/sansevieria trifasciata laurentii-2.jpeg",
+    "category": "indoor",
+    "title": "Sansevieria Trifasciata Laurentii"
+  },
+  {
+    "src": "/gallery/indoor/zamia culcas-2.jpeg",
+    "category": "indoor",
+    "title": "Zamia Culcas"
+  },
+  {
+    "src": "/gallery/palm/carpinteria fountain palm.jpg",
+    "category": "palm",
+    "title": "Carpinteria Fountain Palm"
+  },
+  {
+    "src": "/gallery/palm/champagne palm.jpg",
+    "category": "palm",
+    "title": "Champagne Palm"
+  },
+  {
+    "src": "/gallery/palm/depchis decarall.jpg",
+    "category": "palm",
+    "title": "Depchis Decarall"
+  },
+  {
+    "src": "/gallery/palm/dioon cycus.jpg",
+    "category": "palm",
+    "title": "Dioon Cycus"
+  },
+  {
+    "src": "/gallery/palm/raphis excelsa-1.jpg",
+    "category": "palm",
+    "title": "Raphis Excelsa"
+  },
+  {
+    "src": "/gallery/palm/raphis excelsa.jpg",
+    "category": "palm",
+    "title": "Raphis Excelsa"
+  },
+  {
+    "src": "/gallery/palm/screw pine.jpg",
+    "category": "palm",
+    "title": "Screw Pine"
+  },
+  {
+    "src": "/gallery/palm/veitchia merrillii.jpg",
+    "category": "palm",
+    "title": "Veitchia Merrillii"
+  },
+  {
+    "src": "/gallery/palm/washingtonia fillfera.jpg",
+    "category": "palm",
+    "title": "Washingtonia Fillfera"
+  },
+  {
+    "src": "/gallery/palm/wodyetia bifurcata.jpg",
+    "category": "palm",
+    "title": "Wodyetia Bifurcata"
+  },
+  {
+    "src": "/gallery/bonsai/1.png",
+    "category": "bonsai",
+    "title": "1"
+  },
+  {
+    "src": "/gallery/bonsai/2.jpg",
+    "category": "bonsai",
+    "title": "2"
+  },
+  {
+    "src": "/gallery/bonsai/3.jpg",
+    "category": "bonsai",
+    "title": "3"
+  },
+  {
+    "src": "/gallery/bonsai/4.jpg",
+    "category": "bonsai",
+    "title": "4"
+  },
+  {
+    "src": "/gallery/bonsai/5.jpg",
+    "category": "bonsai",
+    "title": "5"
+  },
+  {
+    "src": "/gallery/bonsai/Adenium -1.png",
+    "category": "bonsai",
+    "title": "Adenium "
+  },
+  {
+    "src": "/gallery/bonsai/adenium-2.jpg",
+    "category": "bonsai",
+    "title": "Adenium"
+  },
+  {
+    "src": "/gallery/bonsai/bonsai ficus-1.jpg",
+    "category": "bonsai",
+    "title": "Bonsai Ficus"
+  },
+  {
+    "src": "/gallery/bonsai/photo_2021-02-19_11-07-12.jpg",
+    "category": "bonsai",
+    "title": "Photo 2021 02 19 11 07"
+  },
+  {
+    "src": "/gallery/bonsai/photo_2021-02-21_00-07-23.jpg",
+    "category": "bonsai",
+    "title": "Photo 2021 02 21 00 07"
+  },
+  {
+    "src": "/gallery/ornamentals/acalypha bronze red-1.jpg",
+    "category": "ornamentals",
+    "title": "Acalypha Bronze Red"
+  },
+  {
+    "src": "/gallery/ornamentals/dracena baby doll-1.jpg",
+    "category": "ornamentals",
+    "title": "Dracena Baby Doll"
+  },
+  {
+    "src": "/gallery/ornamentals/dracena baby doll-2.jpg",
+    "category": "ornamentals",
+    "title": "Dracena Baby Doll"
+  },
+  {
+    "src": "/gallery/ornamentals/fucraea plant.jpg",
+    "category": "ornamentals",
+    "title": "Fucraea Plant"
+  },
+  {
+    "src": "/gallery/ornamentals/juniperus-african-1.jpg",
+    "category": "ornamentals",
+    "title": "Juniperus African"
+  },
+  {
+    "src": "/gallery/ornamentals/ornamental pine apple-1.jpg",
+    "category": "ornamentals",
+    "title": "Ornamental Pine Apple"
+  },
+  {
+    "src": "/gallery/ornamentals/ornamental pine apple.jpg",
+    "category": "ornamentals",
+    "title": "Ornamental Pine Apple"
+  },
+  {
+    "src": "/gallery/ornamentals/pendanus dwarf new-2.jpg",
+    "category": "ornamentals",
+    "title": "Pendanus Dwarf New"
+  },
+  {
+    "src": "/gallery/ornamentals/pendanus dwarf new.jpg",
+    "category": "ornamentals",
+    "title": "Pendanus Dwarf New"
+  },
+  {
+    "src": "/gallery/ornamentals/rhoeo discolor-1.jpg",
+    "category": "ornamentals",
+    "title": "Rhoeo Discolor"
+  },
+  {
+    "src": "/gallery/ornamentals/rhoeo discolor-2.jpg",
+    "category": "ornamentals",
+    "title": "Rhoeo Discolor"
+  },
+  {
+    "src": "/gallery/avenues/alstonia scholaris-1.jpg",
+    "category": "avenues",
+    "title": "Alstonia Scholaris"
+  },
+  {
+    "src": "/gallery/avenues/alstonia scholaris-2.jpg",
+    "category": "avenues",
+    "title": "Alstonia Scholaris"
+  },
+  {
+    "src": "/gallery/avenues/cardia-substantia-2.jpg",
+    "category": "avenues",
+    "title": "Cardia Substantia"
+  },
+  {
+    "src": "/gallery/avenues/cordia sebestena-1.jpg",
+    "category": "avenues",
+    "title": "Cordia Sebestena"
+  },
+  {
+    "src": "/gallery/avenues/neolamarckia cadamba-1.jpg",
+    "category": "avenues",
+    "title": "Neolamarckia Cadamba"
+  },
+  {
+    "src": "/gallery/avenues/neolamarckia cadamba-2.jpg",
+    "category": "avenues",
+    "title": "Neolamarckia Cadamba"
+  },
+  {
+    "src": "/gallery/avenues/peltophorum plant.jpg",
+    "category": "avenues",
+    "title": "Peltophorum Plant"
+  },
+  {
+    "src": "/gallery/avenues/peltophorum-1.jpg",
+    "category": "avenues",
+    "title": "Peltophorum"
+  },
+  {
+    "src": "/gallery/avenues/spathodea campanulata-1.jpg",
+    "category": "avenues",
+    "title": "Spathodea Campanulata"
+  },
+  {
+    "src": "/gallery/avenues/spathodea campanulata-2.jpg",
+    "category": "avenues",
+    "title": "Spathodea Campanulata"
+  },
+  {
+    "src": "/gallery/avenues/spathodea campanulata-3.jpeg",
+    "category": "avenues",
+    "title": "Spathodea Campanulata"
+  },
+  {
+    "src": "/gallery/avenues/terminalia mantaly variegata-1.jpg",
+    "category": "avenues",
+    "title": "Terminalia Mantaly Variegata"
+  },
+  {
+    "src": "/gallery/avenues/terminalia mantaly variegata-2.jpeg",
+    "category": "avenues",
+    "title": "Terminalia Mantaly Variegata"
+  },
+  {
+    "src": "/gallery/fruits/0.jpg",
+    "category": "fruits",
+    "title": "0"
+  },
+  {
+    "src": "/gallery/fruits/1.jpg",
+    "category": "fruits",
+    "title": "1"
+  },
+  {
+    "src": "/gallery/fruits/10.jpg",
+    "category": "fruits",
+    "title": "10"
+  },
+  {
+    "src": "/gallery/fruits/11.jpg",
+    "category": "fruits",
+    "title": "11"
+  },
+  {
+    "src": "/gallery/fruits/12.jpg",
+    "category": "fruits",
+    "title": "12"
+  },
+  {
+    "src": "/gallery/fruits/13.jpg",
+    "category": "fruits",
+    "title": "13"
+  },
+  {
+    "src": "/gallery/fruits/14.jpg",
+    "category": "fruits",
+    "title": "14"
+  },
+  {
+    "src": "/gallery/fruits/15.jpg",
+    "category": "fruits",
+    "title": "15"
+  },
+  {
+    "src": "/gallery/fruits/16.jpg",
+    "category": "fruits",
+    "title": "16"
+  },
+  {
+    "src": "/gallery/fruits/17.jpg",
+    "category": "fruits",
+    "title": "17"
+  },
+  {
+    "src": "/gallery/fruits/18.jpg",
+    "category": "fruits",
+    "title": "18"
+  },
+  {
+    "src": "/gallery/fruits/19.jpg",
+    "category": "fruits",
+    "title": "19"
+  },
+  {
+    "src": "/gallery/fruits/2.jpg",
+    "category": "fruits",
+    "title": "2"
+  },
+  {
+    "src": "/gallery/fruits/20.jpg",
+    "category": "fruits",
+    "title": "20"
+  },
+  {
+    "src": "/gallery/fruits/21.jpg",
+    "category": "fruits",
+    "title": "21"
+  },
+  {
+    "src": "/gallery/fruits/22.jpg",
+    "category": "fruits",
+    "title": "22"
+  },
+  {
+    "src": "/gallery/fruits/23.jpg",
+    "category": "fruits",
+    "title": "23"
+  },
+  {
+    "src": "/gallery/fruits/24.jpg",
+    "category": "fruits",
+    "title": "24"
+  },
+  {
+    "src": "/gallery/fruits/25.jpg",
+    "category": "fruits",
+    "title": "25"
+  },
+  {
+    "src": "/gallery/fruits/26.jpg",
+    "category": "fruits",
+    "title": "26"
+  },
+  {
+    "src": "/gallery/fruits/27.jpg",
+    "category": "fruits",
+    "title": "27"
+  },
+  {
+    "src": "/gallery/fruits/28.jpg",
+    "category": "fruits",
+    "title": "28"
+  },
+  {
+    "src": "/gallery/fruits/29.jpg",
+    "category": "fruits",
+    "title": "29"
+  },
+  {
+    "src": "/gallery/fruits/3.jpg",
+    "category": "fruits",
+    "title": "3"
+  },
+  {
+    "src": "/gallery/fruits/30.jpg",
+    "category": "fruits",
+    "title": "30"
+  },
+  {
+    "src": "/gallery/fruits/31.jpg",
+    "category": "fruits",
+    "title": "31"
+  },
+  {
+    "src": "/gallery/fruits/32.jpg",
+    "category": "fruits",
+    "title": "32"
+  },
+  {
+    "src": "/gallery/fruits/33.jpg",
+    "category": "fruits",
+    "title": "33"
+  },
+  {
+    "src": "/gallery/fruits/34.jpg",
+    "category": "fruits",
+    "title": "34"
+  },
+  {
+    "src": "/gallery/fruits/35.jpg",
+    "category": "fruits",
+    "title": "35"
+  },
+  {
+    "src": "/gallery/fruits/36.jpg",
+    "category": "fruits",
+    "title": "36"
+  },
+  {
+    "src": "/gallery/fruits/4.jpg",
+    "category": "fruits",
+    "title": "4"
+  },
+  {
+    "src": "/gallery/fruits/5.jpg",
+    "category": "fruits",
+    "title": "5"
+  },
+  {
+    "src": "/gallery/fruits/6.jpg",
+    "category": "fruits",
+    "title": "6"
+  },
+  {
+    "src": "/gallery/fruits/7.jpg",
+    "category": "fruits",
+    "title": "7"
+  },
+  {
+    "src": "/gallery/fruits/8.jpg",
+    "category": "fruits",
+    "title": "8"
+  },
+  {
+    "src": "/gallery/fruits/9.jpg",
+    "category": "fruits",
+    "title": "9"
+  }
+];
