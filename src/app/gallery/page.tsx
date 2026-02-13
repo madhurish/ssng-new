@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Gallery as GalleryComponent } from "@/components/Gallery";
@@ -10,7 +10,7 @@ export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-40 pb-20 bg-green-50 overflow-hidden relative">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-green-100/50 -skew-x-12 translate-x-1/2" />
@@ -24,7 +24,7 @@ export default function GalleryPage() {
               The Living <br /><span className="text-green-600">Gallery</span>
             </h1>
             <p className="text-xl text-green-800/70 max-w-3xl mx-auto leading-relaxed">
-              Witness the incredible biodiversity preserved at Sri Satyanarayana Nursery Gardens. 
+              Witness the incredible biodiversity preserved at Sri Satyanarayana Nursery Gardens.
               Our collection spans over 1000 species of rare and exotic flora.
             </p>
           </motion.div>
@@ -32,7 +32,9 @@ export default function GalleryPage() {
       </section>
 
       <div className="py-12">
-        <GalleryComponent />
+        <Suspense fallback={<div>Loading...</div>}>
+          <GalleryComponent />
+        </Suspense>
       </div>
 
       <Footer />

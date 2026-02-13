@@ -883,9 +883,20 @@ const galleryImages = [
   }
 ];
 
+import { useSearchParams } from 'next/navigation';
+
 export const Gallery = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category');
+  const [activeCategory, setActiveCategory] = useState(initialCategory || 'all');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Update active category when URL param changes
+  React.useEffect(() => {
+    if (initialCategory) {
+      setActiveCategory(initialCategory);
+    }
+  }, [initialCategory]);
 
   const filteredImages = activeCategory === 'all'
     ? galleryImages
