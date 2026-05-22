@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
+"use client";
+
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Maximize2 } from 'lucide-react';
+import { X, Maximize2, Search, ChevronLeft, ChevronRight, Download, Copy, Check, Grid, Sparkles, Filter } from 'lucide-react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { galleryImages } from './galleryData';
+
+// Register GSAP ScrollTrigger plugin on client-side
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const categories = [
   { id: 'all', name: 'All Plants' },
@@ -13,970 +24,541 @@ const categories = [
   { id: 'fruits', name: 'Fruits' },
 ];
 
-// Sample images based on the provided directory structure
-const galleryImages = [
-  {
-    "src": "/gallery/flowering/0.jpg",
-    "category": "flowering",
-    "title": "0"
-  },
-  {
-    "src": "/gallery/flowering/1.jpg",
-    "category": "flowering",
-    "title": "1"
-  },
-  {
-    "src": "/gallery/flowering/10.jpg",
-    "category": "flowering",
-    "title": "10"
-  },
-  {
-    "src": "/gallery/flowering/11.jpg",
-    "category": "flowering",
-    "title": "11"
-  },
-  {
-    "src": "/gallery/flowering/12.jpg",
-    "category": "flowering",
-    "title": "12"
-  },
-
-  {
-    "src": "/gallery/flowering/14.jpg",
-    "category": "flowering",
-    "title": "14"
-  },
-  {
-    "src": "/gallery/flowering/15.jpg",
-    "category": "flowering",
-    "title": "15"
-  },
-  {
-    "src": "/gallery/flowering/16.jpg",
-    "category": "flowering",
-    "title": "16"
-  },
-  {
-    "src": "/gallery/flowering/17.jpg",
-    "category": "flowering",
-    "title": "17"
-  },
-  {
-    "src": "/gallery/flowering/18.jpg",
-    "category": "flowering",
-    "title": "18"
-  },
-  {
-    "src": "/gallery/flowering/19.jpg",
-    "category": "flowering",
-    "title": "19"
-  },
-  {
-    "src": "/gallery/flowering/2.jpg",
-    "category": "flowering",
-    "title": "2"
-  },
-  {
-    "src": "/gallery/flowering/20.jpg",
-    "category": "flowering",
-    "title": "20"
-  },
-  {
-    "src": "/gallery/flowering/21.jpg",
-    "category": "flowering",
-    "title": "21"
-  },
-  {
-    "src": "/gallery/flowering/22.jpg",
-    "category": "flowering",
-    "title": "22"
-  },
-  {
-    "src": "/gallery/flowering/23.jpg",
-    "category": "flowering",
-    "title": "23"
-  },
-  {
-    "src": "/gallery/flowering/24.jpg",
-    "category": "flowering",
-    "title": "24"
-  },
-  {
-    "src": "/gallery/flowering/25.jpg",
-    "category": "flowering",
-    "title": "25"
-  },
-  {
-    "src": "/gallery/flowering/26.jpg",
-    "category": "flowering",
-    "title": "26"
-  },
-  {
-    "src": "/gallery/flowering/27.jpg",
-    "category": "flowering",
-    "title": "27"
-  },
-  {
-    "src": "/gallery/flowering/28.jpg",
-    "category": "flowering",
-    "title": "28"
-  },
-  {
-    "src": "/gallery/flowering/29.jpg",
-    "category": "flowering",
-    "title": "29"
-  },
-  {
-    "src": "/gallery/flowering/3.jpg",
-    "category": "flowering",
-    "title": "3"
-  },
-  {
-    "src": "/gallery/flowering/30.jpg",
-    "category": "flowering",
-    "title": "30"
-  },
-  {
-    "src": "/gallery/flowering/31.jpg",
-    "category": "flowering",
-    "title": "31"
-  },
-  {
-    "src": "/gallery/flowering/32.jpg",
-    "category": "flowering",
-    "title": "32"
-  },
-  {
-    "src": "/gallery/flowering/4.jpg",
-    "category": "flowering",
-    "title": "4"
-  },
-  {
-    "src": "/gallery/flowering/5.jpg",
-    "category": "flowering",
-    "title": "5"
-  },
-  {
-    "src": "/gallery/flowering/6.jpg",
-    "category": "flowering",
-    "title": "6"
-  },
-  {
-    "src": "/gallery/flowering/7.jpg",
-    "category": "flowering",
-    "title": "7"
-  },
-  {
-    "src": "/gallery/flowering/8.jpg",
-    "category": "flowering",
-    "title": "8"
-  },
-  {
-    "src": "/gallery/flowering/9.jpg",
-    "category": "flowering",
-    "title": "9"
-  },
-  {
-    "src": "/gallery/flowering/Allamanda gladiator violacea-1.jpg",
-    "category": "flowering",
-    "title": "Allamanda Gladiator Violacea"
-  },
-  {
-    "src": "/gallery/flowering/Allamanda oleander-2.jpg",
-    "category": "flowering",
-    "title": "Allamanda Oleander"
-  },
-  {
-    "src": "/gallery/flowering/Bougainvillea Gold-2.jpg",
-    "category": "flowering",
-    "title": "Bougainvillea Gold"
-  },
-  {
-    "src": "/gallery/flowering/Gerbera-1.jpg",
-    "category": "flowering",
-    "title": "Gerbera"
-  },
-  {
-    "src": "/gallery/flowering/HT Hibiscus-1.png",
-    "category": "flowering",
-    "title": "HT Hibiscus"
-  },
-  {
-    "src": "/gallery/flowering/HT Hibiscus-2.jpg",
-    "category": "flowering",
-    "title": "HT Hibiscus"
-  },
-  {
-    "src": "/gallery/flowering/Heliconiapsittacorum-2.jpg",
-    "category": "flowering",
-    "title": "Heliconiapsittacorum"
-  },
-  {
-    "src": "/gallery/flowering/IXORA NARO LEAF RED-1.jpg",
-    "category": "flowering",
-    "title": "IXORA NARO LEAF RED"
-  },
-  {
-    "src": "/gallery/flowering/PachystachysLutea-1.jpeg",
-    "category": "flowering",
-    "title": "PachystachysLutea"
-  },
-  {
-    "src": "/gallery/flowering/Passiflora-1.jpg",
-    "category": "flowering",
-    "title": "Passiflora"
-  },
-  {
-    "src": "/gallery/flowering/adanium obesum-1.jpg",
-    "category": "flowering",
-    "title": "Adanium Obesum"
-  },
-  {
-    "src": "/gallery/flowering/adanium obesum-2.jpeg",
-    "category": "flowering",
-    "title": "Adanium Obesum"
-  },
-  {
-    "src": "/gallery/flowering/allamanda gladiator violacea-2.jpg",
-    "category": "flowering",
-    "title": "Allamanda Gladiator Violacea"
-  },
-  {
-    "src": "/gallery/flowering/allamanda oleander-1.jpeg",
-    "category": "flowering",
-    "title": "Allamanda Oleander"
-  },
-  {
-    "src": "/gallery/flowering/bird of paradise-1.jpg",
-    "category": "flowering",
-    "title": "Bird Of Paradise"
-  },
-  {
-    "src": "/gallery/flowering/bird-of-paradise-2.jpg",
-    "category": "flowering",
-    "title": "Bird Of Paradise"
-  },
-  {
-    "src": "/gallery/flowering/bourgainvillea gold-1.jpeg",
-    "category": "flowering",
-    "title": "Bourgainvillea Gold"
-  },
-  {
-    "src": "/gallery/flowering/heliconiapsittacorum-1.jpg",
-    "category": "flowering",
-    "title": "Heliconiapsittacorum"
-  },
-  {
-    "src": "/gallery/flowering/ixora yellow-2.jpg",
-    "category": "flowering",
-    "title": "Ixora Yellow"
-  },
-  {
-    "src": "/gallery/flowering/ixora yellow.jpg",
-    "category": "flowering",
-    "title": "Ixora Yellow"
-  },
-  {
-    "src": "/gallery/flowering/jamun .jpg",
-    "category": "flowering",
-    "title": "Jamun "
-  },
-  {
-    "src": "/gallery/flowering/litchi.jpg",
-    "category": "flowering",
-    "title": "Litchi"
-  },
-  {
-    "src": "/gallery/flowering/litchi1.jpg",
-    "category": "flowering",
-    "title": "Litchi1"
-  },
-  {
-    "src": "/gallery/flowering/mandevillea white-2.jpg",
-    "category": "flowering",
-    "title": "Mandevillea White"
-  },
-  {
-    "src": "/gallery/flowering/orchid phalaenopsis-1.jpg",
-    "category": "flowering",
-    "title": "Orchid Phalaenopsis"
-  },
-  {
-    "src": "/gallery/flowering/orchid vendas-1.jpg",
-    "category": "flowering",
-    "title": "Orchid Vendas"
-  },
-  {
-    "src": "/gallery/flowering/orchid vendas-2.jpg",
-    "category": "flowering",
-    "title": "Orchid Vendas"
-  },
-  {
-    "src": "/gallery/flowering/orchids phalaenopsis-2.jpg",
-    "category": "flowering",
-    "title": "Orchids Phalaenopsis"
-  },
-  {
-    "src": "/gallery/flowering/pachystachys-lutea2.jpg",
-    "category": "flowering",
-    "title": "Pachystachys Lutea2"
-  },
-  {
-    "src": "/gallery/flowering/passiflora-2.jpg",
-    "category": "flowering",
-    "title": "Passiflora"
-  },
-  {
-    "src": "/gallery/flowering/plimeria obtusa flore tonda-2.jpg",
-    "category": "flowering",
-    "title": "Plimeria Obtusa Flore Tonda"
-  },
-  {
-    "src": "/gallery/flowering/plumeria obtusa flore tonda-1.jpg",
-    "category": "flowering",
-    "title": "Plumeria Obtusa Flore Tonda"
-  },
-  {
-    "src": "/gallery/flowering/water apple hybrid.jpg",
-    "category": "flowering",
-    "title": "Water Apple Hybrid"
-  },
-  {
-    "src": "/gallery/indoor/MONEY PLANT MARBLE QUEEN WHITE-1.jpg",
-    "category": "indoor",
-    "title": "MONEY PLANT MARBLE QUEEN WHITE"
-  },
-  {
-    "src": "/gallery/indoor/MONEY PLANT MARBLE QUEEN WHITE-2.jpg",
-    "category": "indoor",
-    "title": "MONEY PLANT MARBLE QUEEN WHITE"
-  },
-  {
-    "src": "/gallery/indoor/MONEY-PLANT-MARBLE QUEEN WHITE-1.jpg",
-    "category": "indoor",
-    "title": "MONEY PLANT MARBLE QUEEN WHITE"
-  },
-  {
-    "src": "/gallery/indoor/Zamio culcas-1.jpg",
-    "category": "indoor",
-    "title": "Zamio Culcas"
-  },
-  {
-    "src": "/gallery/indoor/aglaonema thai pink-1.jpg",
-    "category": "indoor",
-    "title": "Aglaonema Thai Pink"
-  },
-  {
-    "src": "/gallery/indoor/aglaonema thai red ruby-1.jpg",
-    "category": "indoor",
-    "title": "Aglaonema Thai Red Ruby"
-  },
-  {
-    "src": "/gallery/indoor/aglaonema thai-2.jpg",
-    "category": "indoor",
-    "title": "Aglaonema Thai"
-  },
-  {
-    "src": "/gallery/indoor/aglaonema varieties-1.jpg",
-    "category": "indoor",
-    "title": "Aglaonema Varieties"
-  },
-  {
-    "src": "/gallery/indoor/aglaonemathai.jpeg",
-    "category": "indoor",
-    "title": "Aglaonemathai"
-  },
-  {
-    "src": "/gallery/indoor/alocasia-1.jpg",
-    "category": "indoor",
-    "title": "Alocasia"
-  },
-  {
-    "src": "/gallery/indoor/anthuriums-2.jpg",
-    "category": "indoor",
-    "title": "Anthuriums"
-  },
-  {
-    "src": "/gallery/indoor/anthuriums.jpeg",
-    "category": "indoor",
-    "title": "Anthuriums"
-  },
-  {
-    "src": "/gallery/indoor/bird nest fern-1.jpg",
-    "category": "indoor",
-    "title": "Bird Nest Fern"
-  },
-  {
-    "src": "/gallery/indoor/bird nest fern-2.jpg",
-    "category": "indoor",
-    "title": "Bird Nest Fern"
-  },
-  {
-    "src": "/gallery/indoor/dracena massangeana gold-1.jpeg",
-    "category": "indoor",
-    "title": "Dracena Massangeana Gold"
-  },
-  {
-    "src": "/gallery/indoor/dracena massangeana gold-2.jpg",
-    "category": "indoor",
-    "title": "Dracena Massangeana Gold"
-  },
-  {
-    "src": "/gallery/indoor/guzmania-2.jpg",
-    "category": "indoor",
-    "title": "Guzmania"
-  },
-  {
-    "src": "/gallery/indoor/guzmanias-1.jpg",
-    "category": "indoor",
-    "title": "Guzmanias"
-  },
-  {
-    "src": "/gallery/indoor/nephrolepis golden fern-1.jpg",
-    "category": "indoor",
-    "title": "Nephrolepis Golden Fern"
-  },
-  {
-    "src": "/gallery/indoor/nephrolepis golden fern-2.jpg",
-    "category": "indoor",
-    "title": "Nephrolepis Golden Fern"
-  },
-  {
-    "src": "/gallery/indoor/philodendron selloum gold-1.jpg",
-    "category": "indoor",
-    "title": "Philodendron Selloum Gold"
-  },
-  {
-    "src": "/gallery/indoor/philodendron selloum gold-2.jpg",
-    "category": "indoor",
-    "title": "Philodendron Selloum Gold"
-  },
-  {
-    "src": "/gallery/indoor/philodendron xanadu-1.jpg",
-    "category": "indoor",
-    "title": "Philodendron Xanadu"
-  },
-  {
-    "src": "/gallery/indoor/philodendron xanadu-2.jpeg",
-    "category": "indoor",
-    "title": "Philodendron Xanadu"
-  },
-  {
-    "src": "/gallery/indoor/sansevieria trifasciata laurentii-1.jpg",
-    "category": "indoor",
-    "title": "Sansevieria Trifasciata Laurentii"
-  },
-  {
-    "src": "/gallery/indoor/sansevieria trifasciata laurentii-2.jpeg",
-    "category": "indoor",
-    "title": "Sansevieria Trifasciata Laurentii"
-  },
-  {
-    "src": "/gallery/indoor/zamia culcas-2.jpeg",
-    "category": "indoor",
-    "title": "Zamia Culcas"
-  },
-  {
-    "src": "/gallery/palm/carpinteria fountain palm.jpg",
-    "category": "palm",
-    "title": "Carpinteria Fountain Palm"
-  },
-  {
-    "src": "/gallery/palm/champagne palm.jpg",
-    "category": "palm",
-    "title": "Champagne Palm"
-  },
-  {
-    "src": "/gallery/palm/depchis decarall.jpg",
-    "category": "palm",
-    "title": "Depchis Decarall"
-  },
-  {
-    "src": "/gallery/palm/dioon cycus.jpg",
-    "category": "palm",
-    "title": "Dioon Cycus"
-  },
-  {
-    "src": "/gallery/palm/raphis excelsa-1.jpg",
-    "category": "palm",
-    "title": "Raphis Excelsa"
-  },
-  {
-    "src": "/gallery/palm/raphis excelsa.jpg",
-    "category": "palm",
-    "title": "Raphis Excelsa"
-  },
-  {
-    "src": "/gallery/palm/screw pine.jpg",
-    "category": "palm",
-    "title": "Screw Pine"
-  },
-  {
-    "src": "/gallery/palm/veitchia merrillii.jpg",
-    "category": "palm",
-    "title": "Veitchia Merrillii"
-  },
-  {
-    "src": "/gallery/palm/washingtonia fillfera.jpg",
-    "category": "palm",
-    "title": "Washingtonia Fillfera"
-  },
-  {
-    "src": "/gallery/palm/wodyetia bifurcata.jpg",
-    "category": "palm",
-    "title": "Wodyetia Bifurcata"
-  },
-  {
-    "src": "/gallery/bonsai/1.png",
-    "category": "bonsai",
-    "title": "1"
-  },
-  {
-    "src": "/gallery/bonsai/2.jpg",
-    "category": "bonsai",
-    "title": "2"
-  },
-  {
-    "src": "/gallery/bonsai/3.jpg",
-    "category": "bonsai",
-    "title": "3"
-  },
-  {
-    "src": "/gallery/bonsai/4.jpg",
-    "category": "bonsai",
-    "title": "4"
-  },
-  {
-    "src": "/gallery/bonsai/5.jpg",
-    "category": "bonsai",
-    "title": "5"
-  },
-  {
-    "src": "/gallery/bonsai/Adenium -1.png",
-    "category": "bonsai",
-    "title": "Adenium "
-  },
-  {
-    "src": "/gallery/bonsai/adenium-2.jpg",
-    "category": "bonsai",
-    "title": "Adenium"
-  },
-  {
-    "src": "/gallery/bonsai/bonsai ficus-1.jpg",
-    "category": "bonsai",
-    "title": "Bonsai Ficus"
-  },
-  {
-    "src": "/gallery/bonsai/photo_2021-02-19_11-07-12.jpg",
-    "category": "bonsai",
-    "title": "Photo 2021 02 19 11 07"
-  },
-  {
-    "src": "/gallery/bonsai/photo_2021-02-21_00-07-23.jpg",
-    "category": "bonsai",
-    "title": "Photo 2021 02 21 00 07"
-  },
-  {
-    "src": "/gallery/ornamentals/acalypha bronze red-1.jpg",
-    "category": "ornamentals",
-    "title": "Acalypha Bronze Red"
-  },
-  {
-    "src": "/gallery/ornamentals/dracena baby doll-1.jpg",
-    "category": "ornamentals",
-    "title": "Dracena Baby Doll"
-  },
-  {
-    "src": "/gallery/ornamentals/dracena baby doll-2.jpg",
-    "category": "ornamentals",
-    "title": "Dracena Baby Doll"
-  },
-  {
-    "src": "/gallery/ornamentals/fucraea plant.jpg",
-    "category": "ornamentals",
-    "title": "Fucraea Plant"
-  },
-  {
-    "src": "/gallery/ornamentals/juniperus-african-1.jpg",
-    "category": "ornamentals",
-    "title": "Juniperus African"
-  },
-  {
-    "src": "/gallery/ornamentals/ornamental pine apple-1.jpg",
-    "category": "ornamentals",
-    "title": "Ornamental Pine Apple"
-  },
-  {
-    "src": "/gallery/ornamentals/ornamental pine apple.jpg",
-    "category": "ornamentals",
-    "title": "Ornamental Pine Apple"
-  },
-  {
-    "src": "/gallery/ornamentals/pendanus dwarf new-2.jpg",
-    "category": "ornamentals",
-    "title": "Pendanus Dwarf New"
-  },
-  {
-    "src": "/gallery/ornamentals/pendanus dwarf new.jpg",
-    "category": "ornamentals",
-    "title": "Pendanus Dwarf New"
-  },
-  {
-    "src": "/gallery/ornamentals/rhoeo discolor-1.jpg",
-    "category": "ornamentals",
-    "title": "Rhoeo Discolor"
-  },
-  {
-    "src": "/gallery/ornamentals/rhoeo discolor-2.jpg",
-    "category": "ornamentals",
-    "title": "Rhoeo Discolor"
-  },
-  {
-    "src": "/gallery/avenues/alstonia scholaris-1.jpg",
-    "category": "avenues",
-    "title": "Alstonia Scholaris"
-  },
-  {
-    "src": "/gallery/avenues/alstonia scholaris-2.jpg",
-    "category": "avenues",
-    "title": "Alstonia Scholaris"
-  },
-  {
-    "src": "/gallery/avenues/cardia-substantia-2.jpg",
-    "category": "avenues",
-    "title": "Cardia Substantia"
-  },
-  {
-    "src": "/gallery/avenues/cordia sebestena-1.jpg",
-    "category": "avenues",
-    "title": "Cordia Sebestena"
-  },
-  {
-    "src": "/gallery/avenues/neolamarckia cadamba-1.jpg",
-    "category": "avenues",
-    "title": "Neolamarckia Cadamba"
-  },
-  {
-    "src": "/gallery/avenues/neolamarckia cadamba-2.jpg",
-    "category": "avenues",
-    "title": "Neolamarckia Cadamba"
-  },
-  {
-    "src": "/gallery/avenues/peltophorum plant.jpg",
-    "category": "avenues",
-    "title": "Peltophorum Plant"
-  },
-  {
-    "src": "/gallery/avenues/peltophorum-1.jpg",
-    "category": "avenues",
-    "title": "Peltophorum"
-  },
-  {
-    "src": "/gallery/avenues/spathodea campanulata-1.jpg",
-    "category": "avenues",
-    "title": "Spathodea Campanulata"
-  },
-  {
-    "src": "/gallery/avenues/spathodea campanulata-2.jpg",
-    "category": "avenues",
-    "title": "Spathodea Campanulata"
-  },
-  {
-    "src": "/gallery/avenues/spathodea campanulata-3.jpeg",
-    "category": "avenues",
-    "title": "Spathodea Campanulata"
-  },
-  {
-    "src": "/gallery/avenues/terminalia mantaly variegata-1.jpg",
-    "category": "avenues",
-    "title": "Terminalia Mantaly Variegata"
-  },
-  {
-    "src": "/gallery/avenues/terminalia mantaly variegata-2.jpeg",
-    "category": "avenues",
-    "title": "Terminalia Mantaly Variegata"
-  },
-  {
-    "src": "/gallery/fruits/0.jpg",
-    "category": "fruits",
-    "title": "0"
-  },
-  {
-    "src": "/gallery/fruits/1.jpg",
-    "category": "fruits",
-    "title": "1"
-  },
-  {
-    "src": "/gallery/fruits/10.jpg",
-    "category": "fruits",
-    "title": "10"
-  },
-  {
-    "src": "/gallery/fruits/11.jpg",
-    "category": "fruits",
-    "title": "11"
-  },
-  {
-    "src": "/gallery/fruits/12.jpg",
-    "category": "fruits",
-    "title": "12"
-  },
-  {
-    "src": "/gallery/fruits/13.jpg",
-    "category": "fruits",
-    "title": "13"
-  },
-  {
-    "src": "/gallery/fruits/14.jpg",
-    "category": "fruits",
-    "title": "14"
-  },
-  {
-    "src": "/gallery/fruits/15.jpg",
-    "category": "fruits",
-    "title": "15"
-  },
-  {
-    "src": "/gallery/fruits/16.jpg",
-    "category": "fruits",
-    "title": "16"
-  },
-  {
-    "src": "/gallery/fruits/17.jpg",
-    "category": "fruits",
-    "title": "17"
-  },
-  {
-    "src": "/gallery/fruits/18.jpg",
-    "category": "fruits",
-    "title": "18"
-  },
-  {
-    "src": "/gallery/fruits/19.jpg",
-    "category": "fruits",
-    "title": "19"
-  },
-  {
-    "src": "/gallery/fruits/2.jpg",
-    "category": "fruits",
-    "title": "2"
-  },
-  {
-    "src": "/gallery/fruits/20.jpg",
-    "category": "fruits",
-    "title": "20"
-  },
-  {
-    "src": "/gallery/fruits/21.jpg",
-    "category": "fruits",
-    "title": "21"
-  },
-  {
-    "src": "/gallery/fruits/22.jpg",
-    "category": "fruits",
-    "title": "22"
-  },
-  {
-    "src": "/gallery/fruits/23.jpg",
-    "category": "fruits",
-    "title": "23"
-  },
-  {
-    "src": "/gallery/fruits/24.jpg",
-    "category": "fruits",
-    "title": "24"
-  },
-  {
-    "src": "/gallery/fruits/25.jpg",
-    "category": "fruits",
-    "title": "25"
-  },
-  {
-    "src": "/gallery/fruits/26.jpg",
-    "category": "fruits",
-    "title": "26"
-  },
-  {
-    "src": "/gallery/fruits/27.jpg",
-    "category": "fruits",
-    "title": "27"
-  },
-  {
-    "src": "/gallery/fruits/28.jpg",
-    "category": "fruits",
-    "title": "28"
-  },
-  {
-    "src": "/gallery/fruits/29.jpg",
-    "category": "fruits",
-    "title": "29"
-  },
-  {
-    "src": "/gallery/fruits/3.jpg",
-    "category": "fruits",
-    "title": "3"
-  },
-  {
-    "src": "/gallery/fruits/30.jpg",
-    "category": "fruits",
-    "title": "30"
-  },
-  {
-    "src": "/gallery/fruits/31.jpg",
-    "category": "fruits",
-    "title": "31"
-  },
-  {
-    "src": "/gallery/fruits/32.jpg",
-    "category": "fruits",
-    "title": "32"
-  },
-  {
-    "src": "/gallery/fruits/33.jpg",
-    "category": "fruits",
-    "title": "33"
-  },
-  {
-    "src": "/gallery/fruits/34.jpg",
-    "category": "fruits",
-    "title": "34"
-  },
-  {
-    "src": "/gallery/fruits/35.jpg",
-    "category": "fruits",
-    "title": "35"
-  },
-  {
-    "src": "/gallery/fruits/36.jpg",
-    "category": "fruits",
-    "title": "36"
-  },
-  {
-    "src": "/gallery/fruits/4.jpg",
-    "category": "fruits",
-    "title": "4"
-  },
-  {
-    "src": "/gallery/fruits/5.jpg",
-    "category": "fruits",
-    "title": "5"
-  },
-  {
-    "src": "/gallery/fruits/6.jpg",
-    "category": "fruits",
-    "title": "6"
-  },
-  {
-    "src": "/gallery/fruits/7.jpg",
-    "category": "fruits",
-    "title": "7"
-  },
-  {
-    "src": "/gallery/fruits/8.jpg",
-    "category": "fruits",
-    "title": "8"
-  },
-  {
-    "src": "/gallery/fruits/9.jpg",
-    "category": "fruits",
-    "title": "9"
-  }
-];
-
-import { useSearchParams } from 'next/navigation';
-
 export const Gallery = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category');
+  
   const [activeCategory, setActiveCategory] = useState(initialCategory || 'all');
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState(16);
+  const [copiedFilename, setCopiedFilename] = useState<string | null>(null);
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   // Update active category when URL param changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (initialCategory) {
       setActiveCategory(initialCategory);
     }
   }, [initialCategory]);
 
-  const filteredImages = activeCategory === 'all'
-    ? galleryImages
-    : galleryImages.filter(img => img.category === activeCategory);
+  // Reset page size when category or search changes
+  useEffect(() => {
+    setVisibleCount(16);
+  }, [activeCategory, searchQuery]);
+
+  // Extract filename from path
+  const getFileName = (src: string) => {
+    return src.split('/').pop() || '';
+  };
+
+  // Prettify filename (remove extension and hyphens) for subtitles
+  const getPrettyTitle = (src: string) => {
+    const filename = getFileName(src);
+    return filename
+      .replace(/\.[^/.]+$/, "") // remove extension
+      .replace(/[-_]/g, ' ')   // replace dashes/underscores
+      .replace(/\s+/g, ' ')    // collapse spaces
+      .trim();
+  };
+
+  // Filtered and searched list of images
+  const filteredImages = useMemo(() => {
+    return galleryImages.filter(img => {
+      const matchesCategory = activeCategory === 'all' || img.category === activeCategory;
+      const fileName = getFileName(img.src).toLowerCase();
+      const title = img.title.toLowerCase();
+      const query = searchQuery.toLowerCase().trim();
+      
+      const matchesSearch = query === '' || 
+        fileName.includes(query) || 
+        title.includes(query) || 
+        img.category.toLowerCase().includes(query);
+        
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
+
+  // Paginated subset of images
+  const visibleImages = useMemo(() => {
+    return filteredImages.slice(0, visibleCount);
+  }, [filteredImages, visibleCount]);
+
+  // Get category item counts
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: galleryImages.length };
+    categories.forEach(cat => {
+      if (cat.id !== 'all') {
+        counts[cat.id] = galleryImages.filter(img => img.category === cat.id).length;
+      }
+    });
+    return counts;
+  }, []);
+
+  // GSAP animation on layout change / filter
+  useEffect(() => {
+    if (visibleImages.length > 0 && gridRef.current) {
+      // Clear any pending triggers/animations
+      gsap.killTweensOf(cardsRef.current);
+      
+      // Animate entry of visible cards
+      gsap.fromTo(
+        cardsRef.current.filter(Boolean),
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.95
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: 'back.out(1.2)',
+          overwrite: 'auto'
+        }
+      );
+    }
+  }, [visibleImages, activeCategory, searchQuery]);
+
+  // Lightbox keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      
+      if (e.key === 'ArrowRight') {
+        handleNextImage();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrevImage();
+      } else if (e.key === 'Escape') {
+        setSelectedImageIndex(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, filteredImages]);
+
+  const handleNextImage = () => {
+    if (selectedImageIndex === null) return;
+    setSelectedImageIndex((prevIndex) => {
+      if (prevIndex === null) return null;
+      return (prevIndex + 1) % filteredImages.length;
+    });
+  };
+
+  const handlePrevImage = () => {
+    if (selectedImageIndex === null) return;
+    setSelectedImageIndex((prevIndex) => {
+      if (prevIndex === null) return null;
+      return (prevIndex - 1 + filteredImages.length) % filteredImages.length;
+    });
+  };
+
+  // 3D Card Hover Tilt Effects using GSAP
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const card = cardsRef.current[index];
+    if (!card) return;
+    
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left; // x position within element
+    const y = e.clientY - rect.top;  // y position within element
+    
+    // Calculate normalized position relative to center (-0.5 to 0.5)
+    const normalizedX = (x / rect.width) - 0.5;
+    const normalizedY = (y / rect.height) - 0.5;
+    
+    // Tilt intensity
+    const tiltX = normalizedY * 12; // tilt around X axis based on Y movement
+    const tiltY = -normalizedX * 12; // tilt around Y axis based on X movement
+    
+    gsap.to(card, {
+      rotateX: tiltX,
+      rotateY: tiltY,
+      transformPerspective: 800,
+      scale: 1.03,
+      boxShadow: '0 20px 40px rgba(4, 47, 31, 0.15)',
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  };
+
+  const handleMouseLeave = (index: number) => {
+    const card = cardsRef.current[index];
+    if (!card) return;
+    
+    gsap.to(card, {
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
+      duration: 0.5,
+      ease: 'elastic.out(1.2, 0.5)'
+    });
+  };
+
+  const copyToClipboard = (text: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(text);
+    setCopiedFilename(text);
+    setTimeout(() => setCopiedFilename(null), 2000);
+  };
 
   return (
-    <section id="gallery" className="py-24 bg-white">
+    <section id="gallery" className="py-16 bg-gradient-to-b from-green-50/50 via-white to-green-50/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-green-600 font-bold tracking-widest uppercase text-sm mb-4">Visual Tour</h2>
-          <h3 className="text-4xl font-bold text-green-950 mb-8">Our Living Gallery</h3>
+        
+        {/* Controls Panel (Search & Categories) */}
+        <div className="mb-12 space-y-8">
+          
+          {/* Header Info */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-green-100 pb-8">
+            <div>
+              <div className="flex items-center gap-2 text-green-600 font-bold tracking-widest uppercase text-xs mb-2">
+                <Sparkles className="h-4 w-4 text-emerald-500 animate-pulse" />
+                <span>Botanical Archive</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-green-950 tracking-tight">
+                 Sri Satyanarayana Nursery <span className="text-green-600 font-normal serif">Collection</span>
+              </h2>
+            </div>
+            
+            {/* Search Input Box */}
+            <div className="relative w-full md:w-80 group">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-green-600/50 group-focus-within:text-green-600 transition-colors">
+                <Search className="h-5 w-5" />
+              </span>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by filename or title..."
+                className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white border border-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-green-900 placeholder-green-700/40 shadow-sm transition-all duration-300 hover:border-green-200"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-green-600/40 hover:text-green-600"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              )}
+            </div>
+          </div>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${activeCategory === cat.id
-                  ? 'bg-green-600 text-white shadow-lg shadow-green-200'
-                  : 'bg-green-50 text-green-700 hover:bg-green-100'
+          {/* Categories Tab Strip */}
+          <div className="flex flex-wrap items-center gap-2 pb-2">
+            <div className="flex items-center gap-2 text-green-700/60 mr-2 text-sm font-semibold">
+              <Filter className="h-4 w-4" />
+              Filter by:
+            </div>
+            {categories.map((cat) => {
+              const count = categoryCounts[cat.id] || 0;
+              const isActive = activeCategory === cat.id;
+              
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    // Add URL search param without full reload
+                    const params = new URLSearchParams(window.location.search);
+                    if (cat.id === 'all') {
+                      params.delete('category');
+                    } else {
+                      params.set('category', cat.id);
+                    }
+                    router.push(`?${params.toString()}`, { scroll: false });
+                  }}
+                  className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 ${
+                    isActive
+                      ? 'bg-green-700 text-white shadow-lg shadow-green-700/20 scale-105 z-10'
+                      : 'bg-white text-green-800 border border-green-100 hover:bg-green-50/50 hover:border-green-200'
                   }`}
-              >
-                {cat.name}
-              </button>
-            ))}
+                >
+                  <span>{cat.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                    isActive ? 'bg-green-600 text-green-100' : 'bg-green-50 text-green-600 border border-green-100'
+                  }`}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          <AnimatePresence mode='popLayout'>
-            {filteredImages.map((image, index) => (
-              <motion.div
-                key={image.src}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all"
-                onClick={() => setSelectedImage(image.src)}
-              >
-                <img
-                  src={image.src}
-                  alt={image.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-green-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <Maximize2 className="text-white h-8 w-8" />
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Info Banner if results are zero */}
+        {filteredImages.length === 0 && (
+          <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-green-200 shadow-sm max-w-xl mx-auto">
+            <Grid className="h-12 w-12 text-green-600/30 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-green-950 mb-2">No matching plants found</h3>
+            <p className="text-sm text-green-800/60 px-6">
+              We couldn't find any image matching <span className="font-semibold text-green-700">"{searchQuery}"</span> under this filter. Try clearing your search query or selecting a different category.
+            </p>
+            <button
+              onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
+              className="mt-6 px-6 py-2 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition-all"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
 
-        {/* Lightbox */}
+        {/* Gallery Grid */}
+        <div 
+          ref={gridRef}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        >
+          {visibleImages.map((image, index) => {
+            const fileName = getFileName(image.src);
+            const prettyTitle = getPrettyTitle(image.src);
+            
+            return (
+              <div
+                key={image.src}
+                ref={el => { cardsRef.current[index] = el; }}
+                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+                onClick={() => {
+                  // Find index in filteredImages rather than visibleImages
+                  const origIndex = filteredImages.findIndex(img => img.src === image.src);
+                  setSelectedImageIndex(origIndex !== -1 ? origIndex : index);
+                }}
+                className="bg-white rounded-3xl overflow-hidden cursor-pointer shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-green-50/50 flex flex-col transition-all group"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {/* Image Wrap */}
+                <div className="relative aspect-square overflow-hidden bg-green-50/30 rounded-t-3xl">
+                  {/* Subtle leafy background icon when image is loading */}
+                  <div className="absolute inset-0 flex items-center justify-center text-green-700/10">
+                    <Sparkles className="h-16 w-16" />
+                  </div>
+                  
+                  <img
+                    src={image.src}
+                    alt={prettyTitle}
+                    loading="lazy"
+                    className="w-full h-full object-cover relative z-10 transition-transform duration-700 group-hover:scale-105"
+                  />
+                  
+                  {/* Glass Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 flex items-end justify-between p-5">
+                    <span className="text-white text-xs font-semibold px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-full border border-white/20">
+                      {image.category}
+                    </span>
+                    <div className="h-10 w-10 rounded-full bg-white text-green-900 flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform">
+                      <Maximize2 className="h-4 w-4" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Info Details */}
+                <div className="p-5 flex flex-col flex-grow bg-white border-t border-green-50/30">
+                  <span className="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-1">
+                    {image.category}
+                  </span>
+                  <h4 className="text-sm font-bold text-green-950 group-hover:text-green-700 transition-colors line-clamp-1">
+                    {prettyTitle}
+                  </h4>
+                  
+                  {/* Interactive Filename Area */}
+                  <div className="mt-4 pt-3 border-t border-green-50 flex items-center justify-between gap-2">
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-[9px] text-green-700/40 font-bold uppercase tracking-wide">
+                        File Name
+                      </span>
+                      <code className="text-[10px] text-emerald-800 font-mono truncate bg-emerald-50/30 border border-emerald-100/50 px-1.5 py-0.5 rounded">
+                        {fileName}
+                      </code>
+                    </div>
+                    
+                    <button
+                      onClick={(e) => copyToClipboard(fileName, e)}
+                      title="Copy Filename to Clipboard"
+                      className="p-1.5 rounded-lg text-green-700/40 hover:text-green-700 hover:bg-green-50 active:scale-90 transition-all flex-shrink-0"
+                    >
+                      {copiedFilename === fileName ? (
+                        <Check className="h-3.5 w-3.5 text-emerald-600 animate-scale-up" />
+                      ) : (
+                        <Copy className="h-3.5 w-3.5" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Load More Button Container */}
+        {filteredImages.length > visibleCount && (
+          <div className="mt-16 text-center">
+            <button
+              onClick={() => setVisibleCount(prev => prev + 16)}
+              className="group relative px-8 py-3.5 bg-green-950 text-white rounded-full font-bold text-sm tracking-wider hover:bg-green-900 transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-green-900/10 active:scale-95"
+            >
+              <span className="absolute inset-0 w-full h-full rounded-full bg-green-600 opacity-0 group-hover:scale-105 group-hover:opacity-10 transition-all duration-300"></span>
+              Explore More Species
+            </button>
+            <p className="text-xs text-green-700/50 mt-3">
+              Showing {visibleCount} of {filteredImages.length} available images
+            </p>
+          </div>
+        )}
+
+        {/* Interactive Lightbox Overlay */}
         <AnimatePresence>
-          {selectedImage && (
+          {selectedImageIndex !== null && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-              onClick={() => setSelectedImage(null)}
+              className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col md:flex-row items-stretch justify-between"
+              onClick={() => setSelectedImageIndex(null)}
             >
-              <button
-                className="absolute top-8 right-8 text-white/70 hover:text-white"
-                onClick={() => setSelectedImage(null)}
+              {/* Main Image Viewer Stage (takes 75% width on desktop) */}
+              <div className="relative flex-grow flex items-center justify-center p-4 md:p-12 select-none group/stage">
+                
+                {/* Close Button */}
+                <button
+                  className="absolute top-6 right-6 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-md hover:scale-105 active:scale-95 transition-all shadow-xl"
+                  onClick={() => setSelectedImageIndex(null)}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+
+                {/* Lightbox Navigation Buttons */}
+                <button
+                  className="absolute left-6 p-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5 backdrop-blur-sm z-30 opacity-0 group-hover/stage:opacity-100 transition-all hover:scale-105 hover:-translate-x-0.5 active:scale-90"
+                  onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+
+                <button
+                  className="absolute right-6 p-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5 backdrop-blur-sm z-30 opacity-0 group-hover/stage:opacity-100 transition-all hover:scale-105 hover:translate-x-0.5 active:scale-90"
+                  onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </button>
+
+                {/* Animated Lightbox Image */}
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={filteredImages[selectedImageIndex]?.src}
+                    initial={{ scale: 0.95, opacity: 0, y: 15 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.95, opacity: 0, y: -15 }}
+                    transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+                    src={filteredImages[selectedImageIndex]?.src}
+                    alt={filteredImages[selectedImageIndex]?.title}
+                    className="max-w-full max-h-[80vh] md:max-h-[85vh] object-contain rounded-2xl shadow-2xl z-10"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </AnimatePresence>
+              </div>
+
+              {/* Lightbox Meta Details Panel (25% width on desktop) */}
+              <div 
+                className="w-full md:w-[360px] bg-neutral-900 border-t md:border-t-0 md:border-l border-neutral-800 text-white p-6 md:p-8 flex flex-col justify-between z-20"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X className="h-8 w-8" />
-              </button>
-              <motion.img
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                src={selectedImage}
-                className="max-w-full max-h-full rounded-2xl shadow-2xl"
-              />
+                <div className="space-y-6">
+                  {/* Category Indicator */}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-950 border border-green-800/40 rounded-full text-green-400 text-xs font-semibold tracking-wider uppercase">
+                    <span className="h-1.5 w-1.5 bg-green-500 rounded-full animate-pulse" />
+                    {filteredImages[selectedImageIndex]?.category}
+                  </div>
+
+                  {/* Title */}
+                  <div>
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">Botanical Name</span>
+                    <h3 className="text-2xl font-bold text-white tracking-tight">
+                      {getPrettyTitle(filteredImages[selectedImageIndex]?.src || '')}
+                    </h3>
+                  </div>
+
+                  {/* Exact Filename display (the primary request) */}
+                  <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-2xl space-y-2">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-bold">Image Filename</span>
+                    <code className="text-sm text-emerald-400 font-mono block break-all font-semibold">
+                      {getFileName(filteredImages[selectedImageIndex]?.src || '')}
+                    </code>
+                    
+                    <div className="pt-2 flex items-center gap-2">
+                      <button
+                        onClick={(e) => copyToClipboard(getFileName(filteredImages[selectedImageIndex]?.src || ''), e)}
+                        className="flex-grow flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 transition-all text-xs font-semibold border border-white/10"
+                      >
+                        {copiedFilename === getFileName(filteredImages[selectedImageIndex]?.src || '') ? (
+                          <>
+                            <Check className="h-4.5 w-4.5 text-emerald-500" />
+                            <span>Copied to Clipboard!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-4 w-4" />
+                            <span>Copy Filename</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Image Stats */}
+                  <div className="grid grid-cols-2 gap-4 pt-2 text-xs border-t border-neutral-800/50">
+                    <div>
+                      <span className="text-neutral-500 block mb-0.5">Item Index</span>
+                      <span className="font-semibold text-neutral-200">
+                        {(selectedImageIndex ?? 0) + 1} / {filteredImages.length}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-neutral-500 block mb-0.5">Source Folder</span>
+                      <span className="font-semibold text-neutral-200 capitalize">
+                        {filteredImages[selectedImageIndex]?.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Controls in sidebar */}
+                <div className="pt-6 border-t border-neutral-800/50 space-y-4">
+                  <div className="flex gap-2 text-xs select-none">
+                    <button
+                      onClick={handlePrevImage}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 active:scale-95 transition-all text-white border border-neutral-700"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>Previous</span>
+                    </button>
+                    <button
+                      onClick={handleNextImage}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 active:scale-95 transition-all text-white border border-neutral-700"
+                    >
+                      <span>Next</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <a
+                    href={filteredImages[selectedImageIndex]?.src}
+                    download={getFileName(filteredImages[selectedImageIndex]?.src || '')}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-green-600 hover:bg-green-500 active:scale-95 transition-all text-sm font-bold text-white shadow-lg shadow-green-700/20"
+                  >
+                    <Download className="h-4 w-4" />
+                    <span>Download Original Image</span>
+                  </a>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -984,4 +566,3 @@ export const Gallery = () => {
     </section>
   );
 };
-
