@@ -366,29 +366,6 @@ export const Gallery = () => {
                     {prettyTitle}
                   </h4>
                   
-                  {/* Interactive Filename Area */}
-                  <div className="mt-4 pt-3 border-t border-green-50 flex items-center justify-between gap-2">
-                    <div className="flex flex-col min-w-0">
-                      <span className="text-[9px] text-green-700/40 font-bold uppercase tracking-wide">
-                        File Name
-                      </span>
-                      <code className="text-[10px] text-emerald-800 font-mono truncate bg-emerald-50/30 border border-emerald-100/50 px-1.5 py-0.5 rounded">
-                        {fileName}
-                      </code>
-                    </div>
-                    
-                    <button
-                      onClick={(e) => copyToClipboard(fileName, e)}
-                      title="Copy Filename to Clipboard"
-                      className="p-1.5 rounded-lg text-green-700/40 hover:text-green-700 hover:bg-green-50 active:scale-90 transition-all flex-shrink-0"
-                    >
-                      {copiedFilename === fileName ? (
-                        <Check className="h-3.5 w-3.5 text-emerald-600 animate-scale-up" />
-                      ) : (
-                        <Copy className="h-3.5 w-3.5" />
-                      )}
-                    </button>
-                  </div>
                 </div>
               </div>
             );
