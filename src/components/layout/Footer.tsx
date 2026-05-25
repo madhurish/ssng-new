@@ -71,25 +71,28 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-green-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-green-100/40">
-          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-left">
+        <div className="border-t border-green-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-green-100/40">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
             <p>© 2025 Sri Satyanarayana Nursery Gardens. All rights reserved.</p>
-            <span className="hidden md:block text-green-800">|</span>
-            <p>
-              Designed and developed by{" "}
-              <a 
-                href="https://wishcoinmedia.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:text-green-400 underline decoration-green-800 underline-offset-4"
-              >
-                wishcoinmedia.com
-              </a>
-            </p>
+            <span className="hidden md:block text-green-900">|</span>
+            <div className="flex gap-8">
+              <a href="#" className="hover:text-green-400 transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-green-400 transition-colors">Terms of Service</a>
+            </div>
           </div>
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-green-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-green-400 transition-colors">Terms of Service</a>
+
+          {/* Prominent Designer Credit Badge */}
+          <div className="flex items-center gap-2 bg-green-900/20 px-4 py-2 rounded-2xl border border-green-900/60 hover:border-green-800/80 transition-all hover:bg-green-900/40 group shrink-0">
+            <span className="text-xs text-green-100/60">Designed & Developed by</span>
+            <a 
+              href="https://wishcoinmedia.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-xs font-bold text-emerald-400 group-hover:text-emerald-300 transition-colors flex items-center gap-1"
+            >
+              Wishcoin Media
+              <span className="inline-block transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[10px] duration-200">↗</span>
+            </a>
           </div>
         </div>
       </div>
